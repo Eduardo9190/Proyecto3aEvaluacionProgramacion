@@ -2,8 +2,6 @@ package com.eduardo.tienda.services;
 
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +12,7 @@ import com.eduardo.tienda.model.ProductoModel;
 import com.eduardo.tienda.repositories.ProductoRepository;
 import com.eduardo.tienda.converters.ProductoConverter;
 import com.eduardo.tienda.entities.Producto;
+import com.eduardo.tienda.errors.BadRequestException;
 import com.eduardo.tienda.errors.NotFoundException;
 
 @Service
@@ -26,6 +25,9 @@ public class ProductoService {
 	
 	public void addProducto(ProductoModel productoModel) {
 		Producto producto = productoConverter.modelToEntity(productoModel);
+		if(!productoRepository.findBySn(producto.getSN()).isEmpty()) {
+			throw new BadRequestException();
+		}
 		productoRepository.save(producto);
 	}
 
@@ -38,23 +40,20 @@ public class ProductoService {
 		return result;
 	}
 	
-	public Optional<ProductoModel> getProducto(long id) {
+	public Optional<ProductoModel> getProducto(long sn) {
 		Optional<ProductoModel> resultModel = Optional.empty();
-		Optional<Producto> resultProducto = productoRepository.findById(id);
-		if(resultProducto.isPresent()) {
-			resultModel = Optional.of(productoConverter.entityToModel(resultProducto.get()));
+		Optional<Producto> result = Optional.of(productoConverter.entityToModel(productoRepository.getBySn(sn)));
+		if(productoRepository.findBySn(sn).isEmpty()) {
+			throw new BadRequestException();
 		}
 		return resultModel;
 	}
 	
 	public void deleteProducto(long sn) {
-		Optional<ProductoModel> resultModel = Optional.empty();
-		Optional<Producto> resultProducto = productoRepository.findById(sn);
-		if(resultProducto.isPresent()) {
-		   productoRepository.deleteById(sn);
-		}else {
+		if(productoRepository.findBySn(sn).isEmpty()) {
 			throw new NotFoundException();
 		}
+		productoRepository.deleteBySn(sn);
 	}
 	
 }
