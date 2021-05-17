@@ -1,7 +1,6 @@
 package com.eduardo.tienda.controllers;
 
-import java.util.Collection;
-import java.util.Optional;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,39 +10,29 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.eduardo.tienda.errors.BadRequestException;
-import com.eduardo.tienda.model.Producto;
+import com.eduardo.tienda.model.ProductoModel;
 import com.eduardo.tienda.services.ProductoService;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class ProductoController {
 	
-	
 	@Autowired
 	private ProductoService productoService;
 	
-	@GetMapping(path="productos")
-	public Collection<Producto> getProductos(){
+	@GetMapping(path="/productos")
+	public ArrayList<ProductoModel> getProductos() {
 		return productoService.getProductos();
 	}
 	
-	@PostMapping(path="newproductos")
-	public void postProducto(@RequestBody Producto producto) {
+	@PostMapping(path="/newproductos")
+	public void postProducto(@RequestBody ProductoModel producto) {
 		producto.validate();
-		if(!productoService.addProducto(producto)) {
-			throw new BadRequestException();
-		}
+		productoService.addProducto(producto);
 	}
-	/*
-	@DeleteMapping(path="deleteproducto")
+	
+	@DeleteMapping(path="/deleteproducto")
 	public void deleteProducto(long sn) {
-		Optional<ProductoModel> resultModel=Optional.empty();
-		Optional<Producto> resultProducto= productoRepository.findById(sn);
-		if(resultProducto.isPresent()) {
-		   productoRepository.deleteById(sn);
-		}else {
-			throw new NotFoundException();
-		}
-	}*/
+		productoService.deleteProducto(sn);
+	}
 }

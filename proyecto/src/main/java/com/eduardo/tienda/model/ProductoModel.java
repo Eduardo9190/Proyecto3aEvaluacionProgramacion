@@ -2,7 +2,7 @@ package com.eduardo.tienda.model;
 
 import com.eduardo.tienda.errors.BadRequestException;
 
-public class Producto {
+public class ProductoModel {
 	private long sn;
 	private String nombre;
 	private String fabricante;
@@ -10,10 +10,10 @@ public class Producto {
 	private int stock;
 	private double precio;
 	
-	public Producto() {
+	public ProductoModel() {
 		super();
 	}
-	public Producto(long sn, String nombre, String fabricante, String categoria, int stock, double precio) {
+	public ProductoModel(long sn, String nombre, String fabricante, String categoria, int stock, double precio) {
 		super();
 		this.sn = sn;
 		this.nombre = nombre;
@@ -26,7 +26,7 @@ public class Producto {
 	public long getSN() {
 		return sn;
 	}
-	public void setNumero(long sn) {
+	public void setSN(long sn) {
 		this.sn = sn;
 	}
 	
@@ -40,7 +40,7 @@ public class Producto {
 	public String getFabricante() {
 		return fabricante;
 	}
-	public void setPosicion(String fabricante) {
+	public void setFabricante(String fabricante) {
 		this.fabricante = fabricante;
 	}
 	
