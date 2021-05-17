@@ -10,7 +10,5 @@ import com.eduardo.tienda.entities.Producto;
 @Repository
 public interface ProductoRepository extends JpaRepository<Producto, Long>{
 	List<Producto> findBySn(long sn);
-	Producto getBySn(long sn);
 	Producto deleteBySn(long sn);
-
 }

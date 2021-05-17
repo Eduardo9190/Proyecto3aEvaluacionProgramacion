@@ -26,10 +26,15 @@ public class ProductoController {
 		return productoService.getProductos();
 	}
 	
-	@PostMapping(path="/newproductos")
+	@PostMapping(path="/newproducto")
 	public void postProducto(@RequestBody ProductoModel producto) {
 		producto.validate();
 		productoService.addProducto(producto);
+	}
+	
+	@GetMapping(path="/productos/{sn}")
+	public ProductoModel getProductoBySn(@PathVariable(name="sn") long sn) {
+		return productoService.getProducto(sn);
 	}
 	
 	@DeleteMapping(path="/deleteproducto/{sn}")

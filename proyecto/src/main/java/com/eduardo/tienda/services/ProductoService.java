@@ -40,13 +40,12 @@ public class ProductoService {
 		return result;
 	}
 	
-	public Optional<ProductoModel> getProducto(long sn) {
-		Optional<ProductoModel> resultModel = Optional.empty();
-		Optional<Producto> result = Optional.of(productoConverter.entityToModel(productoRepository.getBySn(sn)));
-		if(productoRepository.findBySn(sn).isEmpty()) {
+	public ProductoModel getProducto(long sn) {
+		if(!productoRepository.findBySn(sn).isEmpty()) {
 			throw new BadRequestException();
 		}
-		return resultModel;
+		ProductoModel productoModel = productoConverter.entityToModel(productoRepository.findBySn(sn).get(0));
+		return productoModel;
 	}
 	
 	public void deleteProducto(long sn) {
