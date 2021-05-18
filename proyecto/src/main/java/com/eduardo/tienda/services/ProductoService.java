@@ -52,7 +52,8 @@ public class ProductoService {
 		if(productoRepository.findBySn(sn).isEmpty()) {
 			throw new NotFoundException();
 		}
-		productoRepository.deleteBySn(sn);
+		Producto producto = productoRepository.findBySn(sn).get(0);
+		productoRepository.deleteBySn(producto);
 	}
 	
 }
