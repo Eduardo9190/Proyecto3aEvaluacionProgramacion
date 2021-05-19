@@ -2,10 +2,15 @@ package com.eduardo.tienda.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
 public class Producto {
+	
+	@GeneratedValue
+	@Column(name="id")
+	private int id;
 	
 	@Id
 	@Column(name="sn")

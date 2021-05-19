@@ -28,7 +28,7 @@ public class ProductoService {
 		Producto producto = productoConverter.modelToEntity(productoModel);
 		long sn = producto.getSN();
 		Optional<Producto> findProductoEntity = productoRepository.findById(sn);
-		if(findProductoEntity.isPresent() || !findProductoEntity.isEmpty()) {
+		if(!findProductoEntity.isEmpty()) {
 			throw new BadRequestException();
 		}
 		productoRepository.save(producto);
