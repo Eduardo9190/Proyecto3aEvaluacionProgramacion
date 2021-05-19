@@ -69,7 +69,7 @@ public class ProductoModel {
 	public boolean validate() throws BadRequestException {
 		if(nombre!=null 
 				&& nombre.matches("^(([a-zA-ZÁÉÍÓÚáéíóú])+|\\s)+$")
-				&& sn>=0
+				&& sn>0
 				&& categoria!=null
 				&& categoria.matches("^(([a-zA-ZÁÉÍÓÚáéíóú])+|\\s)+$")
 				&& fabricante!=null

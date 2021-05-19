@@ -2,16 +2,12 @@ package com.eduardo.tienda.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
 public class Producto {
 	
 	@Id
-	@GeneratedValue
-	private long id;
-	
 	@Column(name="sn")
 	private long sn;
 	
@@ -34,9 +30,8 @@ public class Producto {
 		super();
 	}
 	
-	public Producto(long id, long sn, String nombre, String fabricante, String categoria, int stock, double precio) {
+	public Producto(long sn, String nombre, String fabricante, String categoria, int stock, double precio) {
 		super();
-		this.id = id;
 		this.sn = sn;
 		this.nombre = nombre;
 		this.fabricante = fabricante;
@@ -45,12 +40,6 @@ public class Producto {
 		this.precio = precio;
 	}
 	
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}
 	public long getSN() {
 		return sn;
 	}

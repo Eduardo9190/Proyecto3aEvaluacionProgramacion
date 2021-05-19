@@ -27,9 +27,9 @@ public class ProductoController {
 	}
 	
 	@PostMapping(path="/newproducto")
-	public void postProducto(@RequestBody ProductoModel producto) {
-		producto.validate();
-		productoService.addProducto(producto);
+	public void postProducto(@RequestBody ProductoModel productoModel) {
+		productoModel.validate();
+		productoService.addProducto(productoModel);
 	}
 	
 	@GetMapping(path="/productos/{sn}")

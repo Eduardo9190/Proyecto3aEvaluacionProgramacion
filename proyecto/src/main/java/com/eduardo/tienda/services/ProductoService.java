@@ -17,6 +17,7 @@ import com.eduardo.tienda.errors.NotFoundException;
 
 @Service
 public class ProductoService {
+	
 	@Autowired
 	private ProductoConverter productoConverter;
 	
@@ -25,7 +26,9 @@ public class ProductoService {
 	
 	public void addProducto(ProductoModel productoModel) {
 		Producto producto = productoConverter.modelToEntity(productoModel);
-		if(!productoRepository.findBySn(producto.getSN()).isEmpty()) {
+		long sn = producto.getSN();
+		Optional<Producto> findProductoEntity = productoRepository.findById(sn);
+		if(findProductoEntity.isPresent() || !findProductoEntity.isEmpty()) {
 			throw new BadRequestException();
 		}
 		productoRepository.save(producto);
@@ -41,19 +44,22 @@ public class ProductoService {
 	}
 	
 	public ProductoModel getProducto(long sn) {
-		if(!productoRepository.findBySn(sn).isEmpty()) {
+		Optional<Producto> findProductoEntity = productoRepository.findById(sn);
+		if(findProductoEntity.isEmpty()) {
 			throw new BadRequestException();
 		}
-		ProductoModel productoModel = productoConverter.entityToModel(productoRepository.findBySn(sn).get(0));
+		Producto producto = productoRepository.getOne(sn);
+		ProductoModel productoModel = productoConverter.entityToModel(producto);
 		return productoModel;
 	}
 	
 	public void deleteProducto(long sn) {
-		if(productoRepository.findBySn(sn).isEmpty()) {
+		Optional<Producto> findProductoModel = productoRepository.findById(sn);
+		if(findProductoModel.isEmpty()) {
 			throw new NotFoundException();
 		}
-		Producto producto = productoRepository.findBySn(sn).get(0);
-		productoRepository.deleteBySn(producto);
+		Producto producto = productoRepository.getOne(sn);
+		productoRepository.delete(producto);
 	}
 	
 }
