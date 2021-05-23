@@ -4,6 +4,7 @@ import com.eduardo.tienda.errors.BadRequestException;
 
 public class ProductoModel {
 	
+	private int id;
 	private long sn;
 	private String nombre;
 	private String fabricante;
@@ -14,14 +15,23 @@ public class ProductoModel {
 	public ProductoModel() {
 		super();
 	}
-	public ProductoModel(long sn, String nombre, String fabricante, String categoria, int stock, double precio) {
+	public ProductoModel(int id, long sn, String nombre, String fabricante, String categoria, int stock, double precio) {
 		super();
+		this.id = id;
 		this.sn = sn;
 		this.nombre = nombre;
 		this.fabricante = fabricante;
 		this.categoria = categoria;
 		this.stock = stock;
 		this.precio = precio;
+	}
+	
+	public int getID() {
+		return id;
+	}
+	
+	public void setID(int id) {
+		this.id = id;
 	}
 	
 	public long getSN() {

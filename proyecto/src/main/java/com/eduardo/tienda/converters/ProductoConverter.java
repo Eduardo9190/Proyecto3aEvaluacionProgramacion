@@ -10,6 +10,7 @@ public class ProductoConverter {
 
 	public Producto modelToEntity (ProductoModel productoModel) {
 		Producto producto = new Producto();
+		producto.setID(productoModel.getID());
 		producto.setSN(productoModel.getSN());
 		producto.setNombre(productoModel.getNombre());
 		producto.setFabricante(productoModel.getFabricante());
@@ -21,6 +22,7 @@ public class ProductoConverter {
 	
 	public ProductoModel entityToModel (Producto producto) {
 		ProductoModel productoModel = new ProductoModel();
+		productoModel.setID(producto.getID());
 		productoModel.setSN(producto.getSN());
 		productoModel.setNombre(producto.getNombre());
 		productoModel.setFabricante(producto.getFabricante());

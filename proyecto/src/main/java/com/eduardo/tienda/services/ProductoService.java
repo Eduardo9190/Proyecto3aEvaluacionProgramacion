@@ -26,8 +26,8 @@ public class ProductoService {
 	
 	public void addProducto(ProductoModel productoModel) {
 		Producto producto = productoConverter.modelToEntity(productoModel);
-		long sn = producto.getSN();
-		Optional<Producto> findProductoEntity = productoRepository.findById(sn);
+		long id = producto.getID();
+		Optional<Producto> findProductoEntity = productoRepository.findById(id);
 		if(!findProductoEntity.isEmpty()) {
 			throw new BadRequestException();
 		}
@@ -43,23 +43,20 @@ public class ProductoService {
 		return result;
 	}
 	
-	public ProductoModel getProducto(long sn) {
-		Optional<Producto> findProductoEntity = productoRepository.findById(sn);
+	public ProductoModel getProducto(long id) {
+		Optional<Producto> findProductoEntity = productoRepository.findById(id);
 		if(findProductoEntity.isEmpty()) {
 			throw new BadRequestException();
 		}
-		Producto producto = productoRepository.getOne(sn);
-		ProductoModel productoModel = productoConverter.entityToModel(producto);
-		return productoModel;
+		return productoConverter.entityToModel(productoRepository.getOne(id));
 	}
 	
-	public void deleteProducto(long sn) {
-		Optional<Producto> findProductoModel = productoRepository.findById(sn);
+	public void deleteProducto(long id) {
+		Optional<Producto> findProductoModel = productoRepository.findById(id);
 		if(findProductoModel.isEmpty()) {
 			throw new NotFoundException();
 		}
-		Producto producto = productoRepository.getOne(sn);
-		productoRepository.delete(producto);
+		productoRepository.delete(productoRepository.getOne(id));
 	}
 	
 }
