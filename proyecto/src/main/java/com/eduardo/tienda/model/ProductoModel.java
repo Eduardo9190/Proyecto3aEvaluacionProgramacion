@@ -4,7 +4,7 @@ import com.eduardo.tienda.errors.BadRequestException;
 
 public class ProductoModel {
 	
-	private int id;
+	private long id;
 	private long sn;
 	private String nombre;
 	private String fabricante;
@@ -15,7 +15,7 @@ public class ProductoModel {
 	public ProductoModel() {
 		super();
 	}
-	public ProductoModel(int id, long sn, String nombre, String fabricante, String categoria, int stock, double precio) {
+	public ProductoModel(long id, long sn, String nombre, String fabricante, String categoria, int stock, double precio) {
 		super();
 		this.id = id;
 		this.sn = sn;
@@ -26,11 +26,11 @@ public class ProductoModel {
 		this.precio = precio;
 	}
 	
-	public int getID() {
+	public long getID() {
 		return id;
 	}
 	
-	public void setID(int id) {
+	public void setID(long id) {
 		this.id = id;
 	}
 	
@@ -80,6 +80,7 @@ public class ProductoModel {
 	public boolean validate() throws BadRequestException {
 		if(nombre!=null 
 				&& nombre.matches("^(([a-zA-ZÁÉÍÓÚáéíóú])+|\\s)+$")
+				&& id>0
 				&& sn>0
 				&& categoria!=null
 				&& categoria.matches("^(([a-zA-ZÁÉÍÓÚáéíóú])+|\\s)+$")

@@ -32,13 +32,13 @@ public class ProductoController {
 		productoService.addProducto(productoModel);
 	}
 	
-	@GetMapping(path="/productos/{sn}")
-	public ProductoModel getProductoBySn(@PathVariable(name="sn") long sn) {
-		return productoService.getProducto(sn);
+	@GetMapping(path="/producto/{id}")
+	public ProductoModel getProductoBySn(@PathVariable(name="id") long id) {
+		return productoService.getProducto(id);
 	}
 	
-	@DeleteMapping(path="/deleteproducto/{sn}")
-	public void deleteProducto(@PathVariable(name="sn") long sn) {
-		productoService.deleteProducto(sn);
+	@DeleteMapping(path="/deleteproducto/{id}")
+	public void deleteProducto(@PathVariable(name="id") long id) {
+		productoService.deleteProducto(id);
 	}
 }

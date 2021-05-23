@@ -46,9 +46,11 @@ public class ProductoService {
 	public ProductoModel getProducto(long id) {
 		Optional<Producto> findProductoEntity = productoRepository.findById(id);
 		if(findProductoEntity.isEmpty()) {
-			throw new BadRequestException();
+			throw new NotFoundException();
 		}
-		return productoConverter.entityToModel(productoRepository.getOne(id));
+		Producto producto = productoRepository.findById(id).get();
+		ProductoModel result = productoConverter.entityToModel(producto);
+		return result;
 	}
 	
 	public void deleteProducto(long id) {
@@ -56,7 +58,7 @@ public class ProductoService {
 		if(findProductoModel.isEmpty()) {
 			throw new NotFoundException();
 		}
-		productoRepository.delete(productoRepository.getOne(id));
+		productoRepository.deleteById(id);
 	}
 	
 }
